@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KRN - Kopfrechnen Training</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- LEVELAUSWAHL -->
+    <div class="container" id="levelSelect">
+        <h1>KRN - Kopfrechnen</h1>
+        <p>Wähle dein Trainingslevel:</p>
+        <button onclick="startTraining(1)">Level 1</button>
+        <button onclick="startTraining(2)">Level 2</button>
+        <button onclick="startTraining(3)">Level 3</button>
+    </div>
+
+    <!-- TRAININGSBEREICH -->
+    <div class="container" id="training" style="display:none;">
+        <h2 id="levelTitle"></h2>
+        <div id="task">3 + 4 = ?</div>
+        <input type="text" id="answer" placeholder="Antwort" autocomplete="off" />
+        <div>
+            <button onclick="checkAnswer()">OK</button>
+        </div>
+        <div id="feedback"></div>
+        <div id="progress"></div>
+        <div id="timer"></div>
+    </div>
+
+    <!-- AUSWERTUNG -->
+    <div class="container" id="results" style="display:none;">
+        <h2>Auswertung</h2>
+        <p id="summary"></p>
+        <button onclick="restartLevel()">Nochmal versuchen</button>
+        <button onclick="backToMenu()">Zurück zur Levelauswahl</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
