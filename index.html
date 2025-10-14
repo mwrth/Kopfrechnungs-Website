@@ -9,34 +9,69 @@
 </head>
 
 <body>
-    <!-- LEVELAUSWAHL -->
-    <div class="container" id="levelSelect">
+    <!-- HAUPTMENÜ -->
+    <div class="container" id="mainMenu">
         <h1>KRN - Kopfrechnen</h1>
-        <p>Wähle dein Trainingslevel:</p>
-        <button onclick="startTraining(1)">Level 1</button>
-        <button onclick="startTraining(2)">Level 2</button>
-        <button onclick="startTraining(3)">Level 3</button>
+        <p>Wähle deinen Trainingsmodus:</p>
+        <div class="button-group">
+            <button onclick="showModeSelection('free')">Freies Rechnen</button>
+            <button onclick="showModeSelection('series')">Reihen lernen</button>
+        </div>
+    </div>
+
+    <!-- MODUS AUSWAHL -->
+    <div class="container" id="modeSelection" style="display:none;">
+        <h2 id="modeTitle"></h2>
+        <p id="modeDescription"></p>
+        <div class="button-group">
+            <button onclick="startTraining(1)">Level 1<br><small>Kein Timer</small></button>
+            <button onclick="startTraining(2)">Level 2<br><small>30 Sekunden Timer</small></button>
+            <button onclick="startTraining(3)">Level 3<br><small>15 Sekunden Timer</small></button>
+        </div>
+        <button class="back-btn" onclick="backToMainMenu()">← Zurück</button>
+    </div>
+
+    <!-- REIHENZAHL EINGABE -->
+    <div class="container" id="seriesInput" style="display:none;">
+        <h2>Reihen lernen</h2>
+        <p>Welche Reihe möchtest du üben?</p>
+        <div class="input-group">
+            <input type="number" id="seriesNumber" placeholder="Zahl eingeben (z.B. 15)" min="1" max="1000" />
+            <button onclick="confirmSeries()">Starten</button>
+        </div>
+        <button class="back-btn" onclick="backToModeSelection()">← Zurück</button>
     </div>
 
     <!-- TRAININGSBEREICH -->
     <div class="container" id="training" style="display:none;">
         <h2 id="levelTitle"></h2>
-        <div id="task">3 + 4 = ?</div>
-        <input type="text" id="answer" placeholder="Antwort" autocomplete="off" />
-        <div>
-            <button onclick="checkAnswer()">OK</button>
+        <div class="task-container">
+            <div id="task">3 + 4 = ?</div>
+            <div class="input-group">
+                <input type="text" id="answer" placeholder="Antwort" autocomplete="off" />
+                <button onclick="checkAnswer()">OK</button>
+            </div>
         </div>
         <div id="feedback"></div>
-        <div id="progress"></div>
-        <div id="timer"></div>
+        <div class="progress-container">
+            <div id="progress"></div>
+            <div id="timer"></div>
+        </div>
+        <div class="progress-bar">
+            <div id="progressFill"></div>
+        </div>
+        <button class="back-btn" onclick="cancelTraining()">Training abbrechen</button>
     </div>
 
     <!-- AUSWERTUNG -->
     <div class="container" id="results" style="display:none;">
         <h2>Auswertung</h2>
+        <div id="resultIcon"></div>
         <p id="summary"></p>
-        <button onclick="restartLevel()">Nochmal versuchen</button>
-        <button onclick="backToMenu()">Zurück zur Levelauswahl</button>
+        <div class="button-group">
+            <button onclick="restartTraining()">Nochmal versuchen</button>
+            <button onclick="backToMainMenu()">Zurück zum Hauptmenü</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
