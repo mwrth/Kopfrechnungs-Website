@@ -1,4 +1,4 @@
-let currentMode = ''; // 'free' oder 'series'
+let currentMode = '';
 let currentLevel = 1;
 let correctAnswer = 0;
 let timerInterval;
@@ -7,6 +7,7 @@ let seriesNumber = 0;
 let totalQuestions = 0;
 let correctCount = 0;
 let currentTask = "";
+let availableMultipliers = []; // Neu: Verfügbare Multiplikatoren für die Reihe
 
 // === MENÜ-NAVIGATION ===
 function showModeSelection(mode) {
@@ -34,6 +35,7 @@ function backToMainMenu() {
     document.getElementById("mainMenu").style.display = "block";
     currentMode = '';
     seriesNumber = 0;
+    availableMultipliers = []; // Zurücksetzen
 }
 
 function backToModeSelection() {
@@ -67,6 +69,7 @@ function startTraining(level) {
     currentLevel = level;
     totalQuestions = 0;
     correctCount = 0;
+    availableMultipliers = []; // Zurücksetzen beim Start
 
     document.getElementById("modeSelection").style.display = "none";
     document.getElementById("results").style.display = "none";
@@ -171,10 +174,21 @@ function generateFreeMathTask() {
 }
 
 function generateSeriesTask() {
-    // Immer bis 20 für alle Levels bei Reihen
-    const multiplier = Math.floor(Math.random() * 20) + 1;
-    correctAnswer = seriesNumber * multiplier;
+    // Verfügbare Multiplikatoren initialisieren, wenn leer
+    if (availableMultipliers.length === 0) {
+        for (let i = 1; i <= 20; i++) {
+            availableMultipliers.push(i);
+        }
+    }
 
+    // Zufälligen Multiplikator aus den verfügbaren auswählen
+    const randomIndex = Math.floor(Math.random() * availableMultipliers.length);
+    const multiplier = availableMultipliers[randomIndex];
+
+    // Ausgewählten Multiplikator entfernen, damit er nicht wiederholt wird
+    availableMultipliers.splice(randomIndex, 1);
+
+    correctAnswer = seriesNumber * multiplier;
     return `${seriesNumber} × ${multiplier}`;
 }
 
